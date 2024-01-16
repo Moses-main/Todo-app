@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Models\Dog;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,8 +16,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    $dogs = Dog::all();
+
+    return view('welcome',['dogs'=>$dogs]);
+})->name('index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
