@@ -169,6 +169,18 @@
                 @forelse ($dogs as $dog )
                 <li class="flex mb-1">
                     <span class="flex-1">{{$dog->name}}</span>
+                    @auth
+                        <form action="{{route('dog.delete', $dog->id)}}"
+                            method="POST">
+                        @csrf
+                        @method('DELETE')
+                            <button
+                            type="submit"
+                            class="p-1 bg-gray-200 border border-black">
+                            Delete
+                            </button>
+                        </form>
+                    @endauth
                 </li>
                 @empty
                     <p>No dogs yet</p>                    
@@ -182,9 +194,29 @@
             <p>Not logged in</p>
             @endguest
         </div>
-
-        <div>
-            
-        </div>
+            {{-- Form to add new dogs/tasks --}}
+        @auth
+            <form method="post" action="{{route('dog.create')}}">
+                @csrf
+                <h3 class="pb-2 mt-4 mb-3 font-bold border-b border-b-gray-300">
+                    Add a new dog
+                </h3>
+                <div class="flex">
+                    <div class="flex-1">
+                        <label>Name</label>
+                        <input 
+                        type="text"
+                        name="name"
+                        id="name"
+                        class="p-1 border border-gray-200">
+                    </div>
+                    <input 
+                    type="submit"
+                    name="send"
+                    value="Submit"
+                    class="p-1 bg-gray-200 border border-black cursor-pointer">
+                </div>
+            </form>
+        @endauth
     </body>
     </html>

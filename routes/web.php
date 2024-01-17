@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DogController;
 use App\Models\Dog;
 
 /*
@@ -30,5 +31,11 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+// Route to add a dog
+Route::post('/dog', [DogController::class, 'create'])->name('dog.create');
+
+// Route to delete a dog
+Route::delete('/dog/{id}', [DogController::class, 'delete'])->name('dog.delete');
 
 require __DIR__.'/auth.php';
